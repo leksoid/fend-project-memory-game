@@ -1,5 +1,7 @@
 let cardsList = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
 const cardDeck = document.querySelector('.deck');
+
+// Remove li's from the deck list element, shuffle array and create/append new elements
 function resetDeck(){
 	shuffle(cardsList);
 	while (cardDeck.firstChild) {
@@ -7,18 +9,12 @@ function resetDeck(){
 	}
 	for (const cards of cardsList){
 		let card = document.createElement('li');
-		card.innerHTML = `<li class="card"><i class="fa ${cards}"></i></li>`;
+		card.classList.add('card');
+		card.innerHTML = `<i class="fa ${cards}"></i>`;
 		cardDeck.appendChild(card);
 	}
 }
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length;
     let temporaryValue;
