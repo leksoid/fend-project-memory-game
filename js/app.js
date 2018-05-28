@@ -1,8 +1,16 @@
-/*
- * Create a list that holds all of your cards
- */
-
-
+let cardsList = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
+const cardDeck = document.querySelector('.deck');
+function resetDeck(){
+	shuffle(cardsList);
+	while (cardDeck.firstChild) {
+  		cardDeck.removeChild(cardDeck.firstChild);
+	}
+	for (const cards of cardsList){
+		let card = document.createElement('li');
+		card.innerHTML = `<li class="card"><i class="fa ${cards}"></i></li>`;
+		cardDeck.appendChild(card);
+	}
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -12,7 +20,9 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
