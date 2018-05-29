@@ -17,12 +17,15 @@ let cardsList = [
 	'fa-bomb'];
 
 const cardDeck = document.querySelector('.deck');
+const movesCounter = document.querySelector('.moves');
 let listOfClicked = Array();
 let counter = 0;
 
 // Remove li's from the deck list element, shuffle array and create/append new elements
 function resetDeck(){
 	shuffle(cardsList);
+	counter = 0; 
+	movesCounter.textContent = `${counter}`;
 	while (cardDeck.firstChild) {
   		cardDeck.removeChild(cardDeck.firstChild);
 	}
@@ -53,13 +56,15 @@ function shuffle(array) {
 function displayCard(e){
 	if (e.target.classList.contains('card') && !e.target.classList.contains('open') && !e.target.classList.contains('match') && listOfClicked.length < 2){
 		e.target.classList.add('open');	
-
+		incrementCounter();
 	}
-	return incrementCounter();
+	
 }
 
 function incrementCounter(){
-
+	counter ++; 
+	movesCounter.textContent = `${counter}`;
+	console.log('Moves = '+counter);
 }
 
 // update the list of cards with new clicked
@@ -67,7 +72,7 @@ function addToList(e){
 	if (e.target.classList.contains('card') && !e.target.classList.contains('match')){
 		listOfClicked.push(e.target);
 	}
-	console.log('length of array is '+listOfClicked.length)
+	//console.log('length of array is '+listOfClicked.length)
 }
 
 
