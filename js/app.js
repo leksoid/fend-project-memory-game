@@ -21,6 +21,9 @@ const movesCounter = document.querySelector('.moves');
 const starsList = document.querySelectorAll('.fa-star');
 let listOfClicked = Array();
 let counter = 0;
+ 
+const timeArray = [];
+let totalTime;
 
 // Remove li's from the deck list element, shuffle array and create/append new elements
 function resetDeck(){
@@ -62,6 +65,7 @@ function displayCard(e){
 	if (e.target.classList.contains('card') && !e.target.classList.contains('open') && !e.target.classList.contains('match') && listOfClicked.length < 2){
 		e.target.classList.add('open');	
 		incrementCounter();
+		timeArray.push(performance.now());
 	}
 	
 }
@@ -70,7 +74,7 @@ function incrementCounter(){
 	counter ++; 
 	movesCounter.textContent = `${counter}`;
 	changeStarRating();
-	console.log('Moves = '+counter);
+	//console.log('Moves = '+counter);
 }
 
 function changeStarRating(){
@@ -110,21 +114,37 @@ function compareTwoCards(){
 			cardOne.classList.add('match');
 			cardTwo.classList.remove('open');
 			cardTwo.classList.add('match');
+			calculateGameTime();
 			return listOfClicked.length = 0;
 		} else setTimeout(function closeCards(){
 			cardOne.classList.remove('open');
 			cardTwo.classList.remove('open');
 			return listOfClicked.length = 0;
 		}, 1000)
-	} else {console.log('Click more!')}
+	} else {}
 
 
+}
+
+function checkAllCards(){
+	let allCards = document.querySelectorAll('.card.match');
+	if (allCards.length === 16){
+		return true;
+	} else return false;
+}
+
+function calculateGameTime(){
+	if(checkAllCards()){
+		timeArray.push(performance.now());
+		totalTime = Math.round((timeArray[1] - timeArray[0])/60);
+	}
 }
 
 document.querySelector('.deck').addEventListener('click',function(e){
 	displayCard(e);
 	addToList(e);
 	compareTwoCards();
+
 })
 
 
