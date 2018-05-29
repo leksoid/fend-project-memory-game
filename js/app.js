@@ -30,6 +30,7 @@ function resetDeck(){
 	shuffle(cardsList);
 	counter = 0; 
 	movesCounter.textContent = `${counter}`;
+	while(timeArray.length){timeArray.pop();}
 	for (const star of starsList){
 		star.classList.remove('redStar');
 		star.style.opacity = 1;
@@ -65,7 +66,7 @@ function displayCard(e){
 	if (e.target.classList.contains('card') && !e.target.classList.contains('open') && !e.target.classList.contains('match') && listOfClicked.length < 2){
 		e.target.classList.add('open');	
 		incrementCounter();
-		timeArray.push(performance.now());
+		if(timeArray.length === 0){timeArray.push(performance.now());}
 	}
 	
 }
@@ -114,7 +115,7 @@ function compareTwoCards(){
 			cardOne.classList.add('match');
 			cardTwo.classList.remove('open');
 			cardTwo.classList.add('match');
-			calculateGameTime();
+			checkIfGameFinished();
 			return listOfClicked.length = 0;
 		} else setTimeout(function closeCards(){
 			cardOne.classList.remove('open');
@@ -133,11 +134,19 @@ function checkAllCards(){
 	} else return false;
 }
 
-function calculateGameTime(){
+function checkIfGameFinished(){
 	if(checkAllCards()){
 		timeArray.push(performance.now());
-		totalTime = Math.round((timeArray[1] - timeArray[0])/60);
+		totalTime = (timeArray[1] - timeArray[0])/1000;
+		totalTime = Math.round(totalTime);
+		displayModal();
 	}
+}
+
+function displayModal(){
+	if (confirm(`Congratulations! You've finished the game in ${totalTime} seconds! Wow! Do you want to retry?`)) {
+        resetDeck();
+    } else {}
 }
 
 document.querySelector('.deck').addEventListener('click',function(e){
@@ -146,11 +155,3 @@ document.querySelector('.deck').addEventListener('click',function(e){
 	compareTwoCards();
 
 })
-
-
-
-/*
-
- *    + if all cards have matched, display a message with the final score (put this functionality in 
- another function that you call from this one)
- */
