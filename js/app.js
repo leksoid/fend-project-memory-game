@@ -18,6 +18,7 @@ let cardsList = [
 
 const cardDeck = document.querySelector('.deck');
 const movesCounter = document.querySelector('.moves');
+const starsList = document.querySelectorAll('.fa-star');
 let listOfClicked = Array();
 let counter = 0;
 
@@ -26,6 +27,10 @@ function resetDeck(){
 	shuffle(cardsList);
 	counter = 0; 
 	movesCounter.textContent = `${counter}`;
+	for (const star of starsList){
+		star.classList.remove('redStar');
+		star.style.opacity = 1;
+	}
 	while (cardDeck.firstChild) {
   		cardDeck.removeChild(cardDeck.firstChild);
 	}
@@ -64,7 +69,25 @@ function displayCard(e){
 function incrementCounter(){
 	counter ++; 
 	movesCounter.textContent = `${counter}`;
+	changeStarRating();
 	console.log('Moves = '+counter);
+}
+
+function changeStarRating(){
+	switch(counter){
+		case 24:
+		starsList[2].classList.add('redStar');
+		setTimeout(function(){
+			starsList[2].style.opacity = 0;
+		})
+		break;
+		case 30:
+		starsList[1].classList.add('redStar');
+		setTimeout(function(){
+			starsList[1].style.opacity = 0;
+		})
+		break;
+	}
 }
 
 // update the list of cards with new clicked
@@ -107,8 +130,7 @@ document.querySelector('.deck').addEventListener('click',function(e){
 
 
 /*
-  *    + increment the move counter and display it on the page (put this functionality in another function 
- that you call from this one)
+
  *    + if all cards have matched, display a message with the final score (put this functionality in 
  another function that you call from this one)
  */
