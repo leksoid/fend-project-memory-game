@@ -1,5 +1,24 @@
-let cardsList = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb'];
+let cardsList = [
+	'fa-diamond',
+	'fa-paper-plane-o',
+	'fa-anchor',
+	'fa-bolt',
+	'fa-cube',
+	'fa-leaf',
+	'fa-bicycle',
+	'fa-bomb',
+	'fa-diamond',
+	'fa-paper-plane-o',
+	'fa-anchor',
+	'fa-bolt',
+	'fa-cube',
+	'fa-leaf',
+	'fa-bicycle',
+	'fa-bomb'];
+
 const cardDeck = document.querySelector('.deck');
+let listOfClicked = Array();
+let counter = 0;
 
 // Remove li's from the deck list element, shuffle array and create/append new elements
 function resetDeck(){
@@ -30,15 +49,61 @@ function shuffle(array) {
 
     return array;
 }
+// make clicked target card opened
+function displayCard(e){
+	if (e.target.classList.contains('card') && !e.target.classList.contains('open') && !e.target.classList.contains('match') && listOfClicked.length < 2){
+		e.target.classList.add('open');	
+
+	}
+	return incrementCounter();
+}
+
+function incrementCounter(){
+
+}
+
+// update the list of cards with new clicked
+function addToList(e){
+	if (e.target.classList.contains('card') && !e.target.classList.contains('match')){
+		listOfClicked.push(e.target);
+	}
+	console.log('length of array is '+listOfClicked.length)
+}
+
+
+function compareTwoCards(){
+	//console.log('Compare function')
+	let cardOne = listOfClicked[0];
+	let cardTwo = listOfClicked[1];
+
+	if (listOfClicked.length === 2) {
+		if (cardOne.firstElementChild.className === cardTwo.firstElementChild.className){
+			cardOne.classList.remove('open');
+			cardOne.classList.add('match');
+			cardTwo.classList.remove('open');
+			cardTwo.classList.add('match');
+			return listOfClicked.length = 0;
+		} else setTimeout(function closeCards(){
+			cardOne.classList.remove('open');
+			cardTwo.classList.remove('open');
+			return listOfClicked.length = 0;
+		}, 1000)
+	} else {console.log('Click more!')}
+
+
+}
+
+document.querySelector('.deck').addEventListener('click',function(e){
+	displayCard(e);
+	addToList(e);
+	compareTwoCards();
+})
+
 
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+  *    + increment the move counter and display it on the page (put this functionality in another function 
+ that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in 
+ another function that you call from this one)
  */

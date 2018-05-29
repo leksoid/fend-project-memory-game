@@ -71,6 +71,7 @@ ul {
 
 .deck .card.open {
     transform: rotateY(0);
+    transition: 0.5s;
     background: #02b3e4;
     cursor: default;
     font-size: 33px;
@@ -82,6 +83,7 @@ ul {
 
 .deck .card.match {
     cursor: default;
+    transition: 0.5s;
     background: #02ccba;
     font-size: 33px;
 }
