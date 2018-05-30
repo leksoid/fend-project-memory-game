@@ -93,6 +93,8 @@ ul {
  */
 
 .score-panel {
+    justify-content: space-between;
+    display: flex;
     text-align: left;
     width: 345px;
     margin-bottom: 10px;

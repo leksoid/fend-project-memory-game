@@ -16,14 +16,18 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+        	<div id="rating">
+                <ul class="stars">
+            		<li><i class="fa fa-star"></i></li>
+            		<li><i class="fa fa-star"></i></li>
+            		<li><i class="fa fa-star"></i></li>
+            	</ul>
 
-        	<span class="moves">0</span> Moves
-
+            	<span class="moves">0</span> Moves
+            </div>
+            <div class='timer'>
+                 <span class="minutes">00</span>:<span class="seconds">00</span>               
+            </div>
             <div class="restart" onclick="resetDeck()">
         		<i class="fa fa-repeat"></i>
         	</div>
