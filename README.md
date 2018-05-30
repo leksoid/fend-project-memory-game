@@ -6,7 +6,7 @@ This is a interactive game of matching same items. Project done as part of Udaci
 
 * [Rules of Game](#instructions)
 * [Features](#features)
-* [Tech Stack](#techstack)
+* [Tech Stack](#tech-stack)
 * [Dependencies](#dependencies)
 
 ## Rules of Game

@@ -36,6 +36,7 @@ function resetDeck(){
 	minSpan.textContent = `00`;
 	counter = 0; 
 	movesCounter.textContent = `${counter}`;
+	while(listOfClicked.length){listOfClicked.pop();} //empty the array after reset
 	while(timeArray.length){timeArray.pop();}
 	for (const star of starsList){
 		star.classList.remove('redStar');
