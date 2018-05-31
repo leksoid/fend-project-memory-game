@@ -22,14 +22,21 @@ const starsList = document.querySelectorAll('.fa-star');
 const secSpan = document.querySelector('.seconds');
 const minSpan = document.querySelector('.minutes');
 const timeArray = [];
+const congratMsg = document.querySelector('.modal-message')
+const modalRating = document.querySelector('.modal-rating-show');
+const starHtml = '<i class="fa fa-star"></i>';
 let listOfClicked = Array();
 let counter = 0;
 let countTime; 
 let totalTime;
 let deckOfCard = document.querySelector('.deck');
+let modal = document.getElementById('myModal');
+let whatRating = 0;
+let starSymbol = document.querySelector('.fa-star')
 
 // Remove li's from the deck list element, shuffle array and create/append new elements
 function resetDeck(){
+	closeModal();
 	shuffle(cardsList);
 	stopTimer();
 	secSpan.textContent = `00`;
@@ -50,6 +57,10 @@ function resetDeck(){
 		card.classList.add('card');
 		card.innerHTML = `<i class="fa ${cards}"></i>`;
 		cardDeck.appendChild(card);
+	}
+	let l = document.querySelectorAll('.modal-rating-show>i')
+	for (const star of l){
+		star.remove();
 	}
 }
 
@@ -72,9 +83,9 @@ function shuffle(array) {
 function displayCard(e){
 	if (e.target.classList.contains('card') 
 		&& !e.target.classList.contains('open') 
-		&& !e.target.classList.contains('match') 
+		&& !e.target.classList.contains('match')
 		&& listOfClicked.length < 2){
-		e.target.classList.add('open');	
+		e.target.classList.add('open');
 		incrementCounter();
 		if(timeArray.length === 0){timeArray.push(performance.now());}
 	}
@@ -106,8 +117,11 @@ function changeStarRating(){
 
 // update the list of cards with new clicked
 function addToList(e){
-	if (e.target.classList.contains('card') && !e.target.classList.contains('match')){
+	if (e.target.classList.contains('card')
+		&& !e.target.classList.contains('match')
+		&& !e.target.classList.contains('locked')){
 		listOfClicked.push(e.target);
+		if(listOfClicked.length <= 1){e.target.classList.add('locked');}
 	}
 }
 
@@ -126,6 +140,7 @@ function compareTwoCards(){
 			return listOfClicked.length = 0;
 		} else setTimeout(function closeCards(){
 			cardOne.classList.remove('open');
+			cardOne.classList.remove('locked');
 			cardTwo.classList.remove('open');
 			return listOfClicked.length = 0;
 		}, 1000)
@@ -150,9 +165,25 @@ function checkIfGameFinished(){
 }
 
 function displayModal(){
+	modal.style.display = "block";
+	starsList.forEach(function(star){
+		if(!star.classList.contains('redStar')){
+			modalRating.insertAdjacentHTML('beforeend', starHtml);
+		} 
+	})
+	congratMsg.textContent = `Congratulations! You've finished the game in ${totalTime} seconds with ${counter} moves! Wow! Do you want to retry?`
+
+/*
 	if (confirm(`Congratulations! You've finished the game in ${totalTime} seconds with ${counter} moves! Wow! Do you want to retry?`)) {
         resetDeck();
-    } else {}
+    } else {} 
+*/
+
+}
+
+function closeModal(){
+    modal.style.display = "none";
+
 }
 
 document.querySelector('.deck').addEventListener('click',function(e){
