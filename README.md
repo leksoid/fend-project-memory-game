@@ -22,7 +22,7 @@ This is a interactive game of matching same items. Project done as part of Udaci
 1. Timer - as soon as you start opening cards, the timer starts, displayed above the deck
 2. Rating system - depending on amount of moves the user taken to match all cards, the rating changes
 3. Reset the game - by clicking special symbol, the deck will reset, shuffling all the cards and placing them randomly, also resets timer and moves
-4. Pop-up - after user finished the game, pop-up appears, it will tell how much time spent on game and the total amount of moves taken, also prompt to play again, reseting the deck
+4. Pop-up - after user finished the game, pop-up appears, it will tell how much time spent on game and the total amount of moves taken, also prompt to play again, reseting the deck. Also shows the rating achieved.
 
 ## Tech Stack
 
